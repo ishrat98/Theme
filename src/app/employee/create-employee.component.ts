@@ -11,11 +11,11 @@ export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
   fullNameLength = 0;
 
-  constructor(private fb: FormBuilder ) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.employeeForm = this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2) , Validators.maxLength(10)]],
+      fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       email: [''],
       skills: this.fb.group({
         skillName: [''],
@@ -23,24 +23,38 @@ export class CreateEmployeeComponent implements OnInit {
         proficiency: ['beginner']
       })
     });
-
-    this.employeeForm.valueChanges.subscribe(
-      value => {
-        console.log(JSON.stringify(value));
-      }
-    );
   }
-
-  onLoadDataClick(): void {
-    this.employeeForm.patchValue({
-       fullName: 'Pragim Technologies',
-       email: 'pragim@pragimtech.com'
-      // skills: {
-      //   skillName: 'C#',
-      //   experienceInYears: 5,
-      //   proficiency: 'beginner'
+  logKeyValuePairs(group: FormGroup): void {
+    Object.keys(group.controls).forEach((key: string) => {
+      const abstractControl = group.get(key);
+      if (abstractControl instanceof FormGroup) {
+        this.logKeyValuePairs(abstractControl);
+      } else {
+        //console.log('key' + key + 'Value=' + abstractControl.value);
+        abstractControl.disable();
+      }
     });
   }
-  onSubmit(): void{}
+  //   this.employeeForm.get('skills').valueChanges.subscribe((value: any) =>{
+
+  //     console.log(JSON.stringify(value));
+  //   });
+  // }
+
+  // tslint:disable-next-line: no-unused-expression
+  // logKeyValuePairs( group: FormGroup): void {
+  //   console.log(Object.keys (group.controls ));
+
+
+  // }
+
+
+
+
+  onLoadDataClick(): void {
+
+    this.logKeyValuePairs(this.employeeForm);
+  }
+  onSubmit(): void { }
 
 }
