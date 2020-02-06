@@ -51,20 +51,21 @@ export class CreateEmployeeComponent implements OnInit {
         proficiency: ['', Validators.required ]
       })
     });
+
+    this.employeeForm.valueChanges.subscribe((data)=> {
+      this.logValidationErrors(this.employeeForm);
+    });
   }
-  logValidationErrors(group: FormGroup): void {
+  logValidationErrors(group: FormGroup = this.employeeForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       } else {
-        
-        if (abstractControl && !abstractControl.valid) {
-          // Get all the validation messages of the form control
-          // that has failed the validation
+        this.formErrors[key] = '';
+        if (abstractControl && !abstractControl.valid
+          && (abstractControl.touched || abstractControl.dirty)) {
           const messages = this.validationMessages[key];
-          console.log(messages);
-          console.log(abstractControl.errors);
           for (const errorKey in abstractControl.errors) {
             if (errorKey) {
               this.formErrors[key] += messages[errorKey] + ' ';
@@ -74,18 +75,6 @@ export class CreateEmployeeComponent implements OnInit {
       }
     });
   }
-  //   this.employeeForm.get('skills').valueChanges.subscribe((value: any) =>{
-
-  //     console.log(JSON.stringify(value));
-  //   });
-  // }
-
-  // tslint:disable-next-line: no-unused-expression
-  // logKeyValuePairs( group: FormGroup): void {
-  //   console.log(Object.keys (group.controls ));
-
-
-  // }
 
 
 
