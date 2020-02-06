@@ -17,7 +17,8 @@ export class CreateEmployeeComponent implements OnInit {
       'maxlength': 'Full Name must be less than 10 characters.'
     },
     'email': {
-      'required': 'Email is required.'
+      'required': 'Email is required.',
+      'emailDomain': 'Email domian should be selise.ch'
     },
     'phone': {
       'required': 'Phone is required.'
@@ -49,7 +50,7 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       contactpreference: ['email'],
-      email: ['', Validators.required],
+      email: ['', [Validators.required, emailDomain]],
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
@@ -80,6 +81,7 @@ export class CreateEmployeeComponent implements OnInit {
 
   }
 
+
   logValidationErrors(group: FormGroup = this.employeeForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
@@ -101,9 +103,28 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
 
-
   onLoadDataClick(): void {
     // this.logValidationErrors(this.employeeForm);
     // console.log(this.formErrors);
+  }
+
+
+  onSubmit(): void {
+
+    console.log(this.employeeForm.touched);
+    console.log(this.employeeForm.value);
+
+    console.log(this.employeeForm.controls.touched);
+    console.log(this.employeeForm.get('fullName').value);
+  }
+}
+
+function emailDomain(control: AbstractControl): { [key: string]: any } | null {
+  const email: string = control.value;
+  const domain = email.substring(email.lastIndexOf('@') + 1);
+  if (email === '' || domain.toLowerCase() === 'selise.ch') {
+    return null;
+  } else {
+    return { 'emailDomain': true };
   }
 }
