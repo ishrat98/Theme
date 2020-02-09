@@ -21,6 +21,9 @@ export class CreateEmployeeComponent implements OnInit {
       'required': 'Email is required.',
       'emailDomain': 'Email domian should be selise.ch'
     },
+    'ConfirmEmail': {
+      'required': ' Confirm Email is required.'
+    },
     'phone': {
       'required': 'Phone is required.'
     },
@@ -39,6 +42,7 @@ export class CreateEmployeeComponent implements OnInit {
   formErrors = {
     'fullName': '',
     'email': '',
+    'confirmEmail': '',
     'phone': '',
     'skillName': '',
     'experienceInYears': '',
@@ -51,7 +55,11 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       contactpreference: ['email'],
-      email: ['', [ Validators.required, CustomValidators.emailDomain('selise.ch')]],
+      emailGroup: this.fb.group ({
+        email: ['', [ Validators.required, CustomValidators.emailDomain('selise.ch')]],
+        confirmEmail: ['', [Validators.required ]],
+
+      }),
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
