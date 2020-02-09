@@ -25,7 +25,7 @@ export class CreateEmployeeComponent implements OnInit {
       'required': ' Confirm Email is required.'
     },
     'emailGroup': {
-      'emailMismatch': 'doesnt match with previous mail'
+      'emailMismatch': 'Email and Confirm Email do not match.'
     },
     'phone': {
       'required': 'Phone is required.'
@@ -63,7 +63,7 @@ export class CreateEmployeeComponent implements OnInit {
         email: ['', [ Validators.required, CustomValidators.emailDomain('selise.ch')]],
         confirmEmail: ['', [Validators.required ]],
 
-      }),
+      } , { validator: matchEmail }),
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
@@ -135,7 +135,7 @@ function matchEmail(group: AbstractControl) : {[key: string]: any} | null{
   const emailControl = group.get('email');
   const confirmEmailControl = group.get('confirmEmail');
 
-  if ( emailControl ===  confirmEmailControl )  {
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine)  {
     return null;
   } else{
     return { 'emailMismatch': true };
