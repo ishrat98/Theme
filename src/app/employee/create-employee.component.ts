@@ -21,8 +21,11 @@ export class CreateEmployeeComponent implements OnInit {
       'required': 'Email is required.',
       'emailDomain': 'Email domian should be selise.ch'
     },
-    'ConfirmEmail': {
+    'confirmEmail': {
       'required': ' Confirm Email is required.'
+    },
+    'emailGroup': {
+      'emailMismatch': 'doesnt match with previous mail'
     },
     'phone': {
       'required': 'Phone is required.'
@@ -43,6 +46,7 @@ export class CreateEmployeeComponent implements OnInit {
     'fullName': '',
     'email': '',
     'confirmEmail': '',
+    'emailGroup': '',
     'phone': '',
     'skillName': '',
     'experienceInYears': '',
@@ -94,19 +98,18 @@ export class CreateEmployeeComponent implements OnInit {
   logValidationErrors(group: FormGroup = this.employeeForm): void {
     Object.keys(group.controls).forEach((key: string) => {
       const abstractControl = group.get(key);
-      if (abstractControl instanceof FormGroup) {
-        this.logValidationErrors(abstractControl);
-      } else {
-        this.formErrors[key] = '';
-        if (abstractControl && !abstractControl.valid
-          && (abstractControl.touched || abstractControl.dirty)) {
-          const messages = this.validationMessages[key];
-          for (const errorKey in abstractControl.errors) {
-            if (errorKey) {
-              this.formErrors[key] += messages[errorKey] + ' ';
-            }
+      this.formErrors[key] = '';
+      if (abstractControl && !abstractControl.valid
+        && (abstractControl.touched || abstractControl.dirty)) {
+        const messages = this.validationMessages[key];
+        for (const errorKey in abstractControl.errors) {
+          if (errorKey) {
+            this.formErrors[key] += messages[errorKey] + ' ';
           }
         }
+      }
+      if (abstractControl instanceof FormGroup) {
+        this.logValidationErrors(abstractControl);
       }
     });
   }
@@ -128,3 +131,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 }
 
+function matchEmail(group: AbstractControl) : {[key: string]: any} | null{
+  const emailControl = group.get('email');
+  const confirmEmailControl = group.get('confirmEmail');
+
+  if ( emailControl ===  confirmEmailControl )  {
+    return null;
+  } else{
+    return { 'emailMismatch': true };
+  }
+}
