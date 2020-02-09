@@ -1,5 +1,5 @@
 # Employee Management System
-This is an very simple employee management app and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
+This is a very simple employee management app and it is generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.23.
 
 ## Development server
 
