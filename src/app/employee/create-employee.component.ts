@@ -59,11 +59,11 @@ export class CreateEmployeeComponent implements OnInit {
     this.employeeForm = this.fb.group({
       fullName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
       contactpreference: ['email'],
-      emailGroup: this.fb.group ({
-        email: ['', [ Validators.required, CustomValidators.emailDomain('selise.ch')]],
-        confirmEmail: ['', [Validators.required ]],
+      emailGroup: this.fb.group({
+        email: ['', [Validators.required, CustomValidators.emailDomain('selise.ch')]],
+        confirmEmail: ['', [Validators.required]],
 
-      } , { validator: matchEmail }),
+      }, { validator: matchEmail }),
       phone: [''],
       skills: this.fb.group({
         skillName: ['', Validators.required],
@@ -116,8 +116,7 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onLoadDataClick(): void {
-    // this.logValidationErrors(this.employeeForm);
-    // console.log(this.formErrors);
+    
   }
 
 
@@ -131,13 +130,13 @@ export class CreateEmployeeComponent implements OnInit {
   }
 }
 
-function matchEmail(group: AbstractControl) : {[key: string]: any} | null{
+function matchEmail(group: AbstractControl): { [key: string]: any } | null {
   const emailControl = group.get('email');
   const confirmEmailControl = group.get('confirmEmail');
 
-  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine)  {
+  if (emailControl.value === confirmEmailControl.value || confirmEmailControl.pristine) {
     return null;
-  } else{
-    return { 'emailMismatch': true };
+  } else {
+    return { emailMismatch: true };
   }
 }
