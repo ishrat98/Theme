@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormArray, FormControl } from '@angular/forms';
 import { CustomValidators } from '../shared/custom.validators';
 
 @Component({
@@ -116,7 +116,22 @@ export class CreateEmployeeComponent implements OnInit {
 
 
   onLoadDataClick(): void {
-    
+    const formArray = new FormArray([
+      new FormControl('Emu', Validators.required),
+      new FormGroup({
+        country: new FormControl('', Validators.required)
+      }),
+      new FormArray([])
+    ]);
+
+    const formArray1 = this.fb.array([
+
+      new FormControl('Emu', Validators.required),
+      new FormControl('IIT', Validators.required),
+      new FormControl('Female', Validators.required),
+    ]);
+    console.log(formArray1.at(2));
+
   }
 
 
