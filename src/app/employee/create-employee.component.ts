@@ -78,6 +78,10 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  removeSkillButtonClick(skillGroupIndex: number): void {
+    (this.employeeForm.get('skills') as FormArray).removeAt(skillGroupIndex);
+  }
+
   onContactPreferenceChange(selectedValue: string) {
     const phoneControl = this.employeeForm.get('phone');
     if (selectedValue === 'phone') {
