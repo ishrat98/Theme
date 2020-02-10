@@ -30,27 +30,12 @@ export class CreateEmployeeComponent implements OnInit {
     'phone': {
       'required': 'Phone is required.'
     },
-    'skillName': {
-      'required': 'Skill Name is required.',
-    },
-    'experienceInYears': {
-      'required': 'Experience is required.',
-    },
-    'proficiency': {
-      'required': 'Proficiency is required.',
-    },
+
   };
 
 
   formErrors = {
-    'fullName': '',
-    'email': '',
-    'confirmEmail': '',
-    'emailGroup': '',
-    'phone': '',
-    'skillName': '',
-    'experienceInYears': '',
-    'proficiency': ''
+
   };
 
   constructor(private fb: FormBuilder) { }
@@ -121,18 +106,6 @@ export class CreateEmployeeComponent implements OnInit {
       }
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
-      }
-      // We need this additional check to get to the FormGroup
-      // in the FormArray and then recursively call this
-      // logValidationErrors() method to fix the broken validation
-      if (abstractControl instanceof FormArray) {
-
-        for (const control of abstractControl.controls) {
-          if (control instanceof FormGroup) {
-
-            this.logValidationErrors(control);
-          }
-        }
       }
     });
   }
