@@ -81,6 +81,10 @@ export class CreateEmployeeComponent implements OnInit {
     });
   }
 
+  addSkillButtonClick(): void {
+
+    (this.employeeForm.get('skills') as FormArray).push(this.addSkillFormGroup());
+  }
   addSkillFormGroup(): FormGroup {
     return this.fb.group({
       skillName: ['', Validators.required],
@@ -118,14 +122,14 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       }
-  // We need this additional check to get to the FormGroup
-    // in the FormArray and then recursively call this
-    // logValidationErrors() method to fix the broken validation
+      // We need this additional check to get to the FormGroup
+      // in the FormArray and then recursively call this
+      // logValidationErrors() method to fix the broken validation
       if (abstractControl instanceof FormArray) {
 
-        for(const control of abstractControl.controls)  {
-          if(control instanceof FormGroup)  {
-            
+        for (const control of abstractControl.controls) {
+          if (control instanceof FormGroup) {
+
             this.logValidationErrors(control);
           }
         }
