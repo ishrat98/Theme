@@ -65,11 +65,10 @@ export class CreateEmployeeComponent implements OnInit {
 
       }, { validator: matchEmail }),
       phone: [''],
-      skills: this.fb.group({
-        skillName: ['', Validators.required],
-        experienceInYears: ['', Validators.required],
-        proficiency: ['', Validators.required]
-      })
+      skills: this.fb.array([
+
+        this.addSkillFormGroup()
+      ])
     });
 
     this.employeeForm.get('contactpreference')
@@ -79,6 +78,14 @@ export class CreateEmployeeComponent implements OnInit {
 
     this.employeeForm.valueChanges.subscribe((data) => {
       this.logValidationErrors(this.employeeForm);
+    });
+  }
+
+  addSkillFormGroup(): FormGroup {
+    return this.fb.group({
+      skillName: ['', Validators.required],
+      experienceInYears: ['', Validators.required],
+      proficiency: ['', Validators.required]
     });
   }
 
@@ -111,18 +118,23 @@ export class CreateEmployeeComponent implements OnInit {
       if (abstractControl instanceof FormGroup) {
         this.logValidationErrors(abstractControl);
       }
+  // We need this additional check to get to the FormGroup
+    // in the FormArray and then recursively call this
+    // logValidationErrors() method to fix the broken validation
+      if (abstractControl instanceof FormArray) {
+
+        for(const control of abstractControl.controls)  {
+          if(control instanceof FormGroup)  {
+            
+            this.logValidationErrors(control);
+          }
+        }
+      }
     });
   }
 
 
   onLoadDataClick(): void {
-    const formArray = new FormArray([
-      new FormControl('Emu', Validators.required),
-      new FormGroup({
-        country: new FormControl('', Validators.required)
-      }),
-      new FormArray([])
-    ]);
 
     const formArray1 = this.fb.array([
 
@@ -130,7 +142,14 @@ export class CreateEmployeeComponent implements OnInit {
       new FormControl('IIT', Validators.required),
       new FormControl('Female', Validators.required),
     ]);
-    console.log(formArray1.at(2));
+    const formGroup1 = this.fb.group([
+
+      new FormControl('Emu', Validators.required),
+      new FormControl('IIT', Validators.required),
+      new FormControl('Female', Validators.required),
+    ]);
+    console.log(formArray1);
+    console.log(formGroup1);
 
   }
 
