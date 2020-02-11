@@ -43,8 +43,8 @@ export class CreateEmployeeComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private employeeService: EmployeeService) { }
+              private route: ActivatedRoute,
+              private employeeService: EmployeeService) { }
 
   ngOnInit() {
     this.employeeForm = this.fb.group({
@@ -97,6 +97,19 @@ export class CreateEmployeeComponent implements OnInit {
       },
       phone: employee.phone
     });
+    this.employeeForm.setControl('skills', this.setExistingSkills(employee.skills));
+  }
+  setExistingSkills(skillSets: ISkill[]): FormArray {
+    const formArray = new FormArray([]);
+    skillSets.forEach(s => {
+      formArray.push(this.fb.group({
+        skillName: s.skillName,
+        experienceInYears: s.experienceInYears,
+        proficiency: s.proficiency
+      }));
+    });
+
+    return formArray;
   }
 
 
@@ -113,7 +126,10 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   removeSkillButtonClick(skillGroupIndex: number): void {
-    (this.employeeForm.get('skills') as FormArray).removeAt(skillGroupIndex);
+    const skillsFormArray = this.employeeForm.get('skills') as FormArray;
+    skillsFormArray.removeAt(skillGroupIndex);
+    skillsFormArray.markAsDirty();
+    skillsFormArray.markAsTouched();
   }
 
   onContactPreferenceChange(selectedValue: string) {
@@ -188,6 +204,6 @@ function matchEmail(group: AbstractControl): { [key: string]: any } | null {
     || (confirmEmailControl.pristine && confirmEmailControl.value === '')) {
     return null;
   } else {
-    return { 'emailMismatch': true };
+    return { emailMismatch: true };
   }
 }
