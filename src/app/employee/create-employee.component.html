@@ -140,7 +140,7 @@ skill.get('experienceInYears').invalid && skill.get('experienceInYears').touched
             </div>
             <div class="panel-footer">
                 <div class="btn-toolbar">
-                    <button class="btn btn-primary" type="submit">Save</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="employeeForm.invalid">Save</button>
                     <button class="btn btn-primary" type="button" (click)="onLoadDataClick()">Load Data</button>
                 </div>
             </div>
