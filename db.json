@@ -41,6 +41,19 @@
           "proficiency": "advanced"
         }
       ]
+    },
+    {
+      "id": 3,
+      "fullName": "Emu",
+      "email": "bsse0927@selise.ch",
+      "phone": "123571241283",
+      "skills": [
+        {
+          "skillName": "c",
+          "experienceInYears": "1",
+          "proficiency": "intermediate"
+        }
+      ]
     }
   ]
 }
