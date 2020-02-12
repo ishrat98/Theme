@@ -9,9 +9,9 @@ import { ListEmployeesComponent } from './list-employees.component';
 // Define the routes
 const appRoutes: Routes = [
     {
-        path: 'employees',
+        path: '',
         children: [
-            { path: 'list', component: ListEmployeesComponent },
+            { path: '', component: ListEmployeesComponent },
             { path: 'create', component: CreateEmployeeComponent },
             { path: 'edit/:id', component: CreateEmployeeComponent },
         ]

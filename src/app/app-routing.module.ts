@@ -8,7 +8,8 @@ import { PageNotFoundComponent } from './page-not-found.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // wild card route
+  { path: 'employees', loadChildren: './employee/employee.module#EmployeeModule' },
+   // wild card route
   { path: '**', component: PageNotFoundComponent }
 ];
 
