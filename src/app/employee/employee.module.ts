@@ -1,21 +1,18 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CreateEmployeeComponent } from './create-employee.component';
 import { ListEmployeesComponent } from './list-employees.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
+import { EmployeeRoutingModule } from './employee-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    ReactiveFormsModule
+    EmployeeRoutingModule,
+    SharedModule
   ],
   declarations: [
     CreateEmployeeComponent,
     ListEmployeesComponent
   ],
-  exports:  [
-    CreateEmployeeComponent
-  ]
 })
 export class EmployeeModule { }
