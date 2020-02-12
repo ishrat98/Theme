@@ -54,6 +54,19 @@
           "proficiency": "intermediate"
         }
       ]
+    },
+    {
+      "id": 4,
+      "fullName": "zsdfas",
+      "email": "ishrat.emu@selise.ch",
+      "phone": "",
+      "skills": [
+        {
+          "skillName": "c",
+          "experienceInYears": "1",
+          "proficiency": "intermediate"
+        }
+      ]
     }
   ]
 }
