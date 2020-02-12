@@ -67,6 +67,32 @@
           "proficiency": "intermediate"
         }
       ]
+    },
+    {
+      "id": 5,
+      "fullName": "zsdfas",
+      "email": "ishrat.emu@selise.ch",
+      "phone": "5641238971",
+      "skills": [
+        {
+          "skillName": "c",
+          "experienceInYears": "2",
+          "proficiency": "advanced"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "fullName": "ghgfgjg",
+      "email": "pragim@selise.ch",
+      "phone": "5641238971",
+      "skills": [
+        {
+          "skillName": "c#",
+          "experienceInYears": "1",
+          "proficiency": "intermediate"
+        }
+      ]
     }
   ]
 }
